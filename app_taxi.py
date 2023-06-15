@@ -26,7 +26,6 @@ while True:
 
 
 
-from http.client import OK
 
 
 def mensaje():
@@ -40,7 +39,7 @@ mensaje()
 '''segundos = datetime.now() #fecha para los datos
 print(segundos.second)'''
 
-total = OK
+total = "ok"
 
 class Taxi:
     def __init__(self):
