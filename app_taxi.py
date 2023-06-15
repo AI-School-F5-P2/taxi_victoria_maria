@@ -23,8 +23,14 @@ while True:
    else:
        print('You guessed the number:', secret_number)
        break ''' 
+
+
+
 from datetime import datetime
 import tkinter as tk
+
+from http.client import OK
+
 
 def mensaje():
     print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
@@ -33,6 +39,7 @@ def mensaje():
     print("Para fin de carrera AQUÍ LA FUNCIÓN")
         
 mensaje()
+
 
 total = "ok"
 class Taxi:
@@ -75,3 +82,15 @@ raiz.title("prueba")
 refresh_tiempo()
 app.pack()
 app.mainloop()
+=======
+'''segundos = datetime.now() #fecha para los datos
+print(segundos.second)'''
+
+total = OK
+
+class Taxi:
+    def __init__(self):
+        self.parado = 2
+        self.inicio = self.parado +3
+        self.fin = total
+
