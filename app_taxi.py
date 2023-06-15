@@ -26,6 +26,9 @@ while True:
 
 
 
+from http.client import OK
+
+
 def mensaje():
     print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
     print("Para inicar AQUI LA FUNCIÓN")
@@ -34,6 +37,14 @@ def mensaje():
         
 mensaje()
 
-segundos = datetime.now() #fecha para los datos
-print(segundos.second)
+'''segundos = datetime.now() #fecha para los datos
+print(segundos.second)'''
 
+total = OK
+
+class Taxi:
+    def __init__(self):
+        self.parado = 2
+        self.inicio = self.parado +3
+        self.fin = total
+        
