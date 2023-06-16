@@ -131,6 +131,30 @@ class Taxi:
 taxi = Taxi()
 taxi.iniciar_carrera()
 
+from datetime import datetime
+import tkinter as tk
+
+from http.client import OK
+
+
+
+def mensaje():
+    print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
+    print("Para inicar AQUI LA FUNCIÓN")
+    print("Para parar por tráfico, semáforo AQUÍ LA FUNCIÓN")
+    print("Para fin de carrera AQUÍ LA FUNCIÓN")
+        
+mensaje()
+
+
+total = OK
+class Taxi:
+    def __init__(self):
+        self.parado =  True
+        self.inicio = 0
+        self.fin = 0
+
+
 
 
 
@@ -168,14 +192,5 @@ app.mainloop()
 
 '''segundos = datetime.now() #fecha para los datos
 print(segundos.second)'''
-
-
-        
-
-
-
-
-
-
 
 
