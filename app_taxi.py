@@ -22,15 +22,12 @@ while True:
            print(number, 'is less than the secret number')
    else:
        print('You guessed the number:', secret_number)
-       break ''' 
+       break 
 
 
 
 from datetime import datetime
 import tkinter as tk
-
-from http.client import OK
-
 
 def mensaje():
     print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
@@ -41,36 +38,39 @@ def mensaje():
 mensaje()
 
 
-total = "ok"
-class Taxi:
-    def __init__(self):
-        self.parado =  True
-        self.inicio = 0
-        self.fin = 0
-
-
-
+from datetime import datetime
+import tkinter as tk
 
 #Cronómetro y ventana emergente que nos muestra el tiempo que ha transcurrido desde el inicio. 
 
 hora_inicio = datetime.now()
-intervalos = 500 
+intervalos = 1000
 
-def segundos_total(segundos):
+
+def segundos_total(segundos): #formatea el timedate.now convirtiendolo en 00:00:00
     horas = int(segundos /60/60)
     segundos -= horas *60*60
     minutos= int (segundos/60)
     segundos -= minutos*60
     return f"{horas:02d}:{minutos:02d}:{segundos:02d}"
 
+#Comprobación de si funciona la función
+segundos = refresh_tiempo
+resultado = segundos_total(segundos)
+print(resultado)
+
 def t_formateado ():
     seg_transcurridos= (datetime.now()- hora_inicio).total_seconds()
     return segundos_total(int(seg_transcurridos))
 
+seg_transcurridos = 40  # Valor específico para seg_transcurridos
+formateo = t_formateado()
+print(formateo)
+
 def refresh_tiempo():
-    print("funciona")
+    print()
     v_hora_actual.set(t_formateado())
-    raiz.after(intervalos, refresh_tiempo)
+   raiz.after(intervalos, refresh_tiempo)
 
 raiz= tk.Tk()
 v_hora_actual = tk.StringVar(raiz, value = t_formateado())
@@ -82,15 +82,28 @@ raiz.title("prueba")
 refresh_tiempo()
 app.pack()
 app.mainloop()
-=======
-'''segundos = datetime.now() #fecha para los datos
-print(segundos.second)'''
+'''
 
-total = OK
+import time
+from datetime import datetime, timedelta
 
-class Taxi:
-    def __init__(self):
-        self.parado = 2
-        self.inicio = self.parado +3
-        self.fin = total
+inicio = time.time()
 
+count = 0
+end_time = time.time() + 2
+while time.time() < end_time:
+    count += 1
+fin = time.time()
+
+segundos_totales = fin - inicio
+
+print(f"Segundos transcurridos: {segundos_totales:.2f} segundos")
+
+
+inicio = int(segundos_totales * 5)
+parada = segundos_totales*0,2
+fin= inicio + parada
+
+print("inicio",inicio)
+print("parada",parada)
+print("fin",fin)
