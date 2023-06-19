@@ -74,7 +74,7 @@ Utilizar None en vez de 0 es más correcto para representar la ausencia de un va
 from datetime import datetime
 import tkinter as tk
 
-
+#PROBANDO
 
 
 
