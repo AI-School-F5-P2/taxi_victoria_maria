@@ -66,12 +66,15 @@ Utilizar None en vez de 0 es más correcto para representar la ausencia de un va
     13. Creamos un obejto llmado taxi que es una instancia de la clase Taxi. Con este objeto podemos llamar al método 'iniciar_carrera() para comenzar.
     Esta clase es esencial para poder utilizar la funcionalidad de Taxi. 
     14. Finalmente iniciamos la carrera
+    ARREGLOS
+    La función parar no sirve, ya que si paras el taxi, el tiempo que llevamos en marcha se convierte en 0 y el fin nos daría un total de 0.
+    Cambios marcados con# a lo largo del código.
 
     '''
 from datetime import datetime
 import tkinter as tk
 
-
+#PROBANDO
 
 
 
@@ -80,6 +83,8 @@ class Taxi:
         self.parado =  True
         self.inicio = None
         self.fin = None
+        self.tiempo_detenido = 0
+        # se añade el tiempo detenido.
 
 
     def iniciar_carrera(self):
@@ -96,34 +101,59 @@ class Taxi:
 
             if comando == "Empezar":
                 if self.parado:
-                 self.parado = False
-                 self.inicio = datetime.now()
+                    self.parado = False
+                    self.inicio = datetime.now()
                 print("Taxi en movimiento.")
 
             elif comando == 'parar':
-             if not self.parado:
-                self.parado = True
-                print("Taxi detenido.")
+                if not self.parado:
+                    self.parado = True
+                    tiempo_detenido_actual = (datetime.now() - self.inicio).total_seconds()
+                    #Calcula el tiempo desde el inicio hasta el actual. Lo hacems restando self.inicio del actual datetime.now y utilizando
+                    # .total_seconds() obtenemos en resultado en seg.
+                    self.tiempo_detenido += tiempo_detenido_actual
+                    #Suma el tiempo detenido actual, al tiempo total acumulado
+                    print(f"Taxi detenido. Tiempo total detenido: {self.tiempo_detenido} segundos.")
+                else:
+                    print("El taxi ya está detenido.")
+
+            elif comando == 'reiniciar':
+                if self.parado:
+                    #verifica si está detenido y si es True ejecuta el bloque de código
+                    self.parado = False
+                    #Al establecerlo en False indicamos que está en mov de nuevo
+                    print("Taxi en marcha de nuevo.")
+                    #añadimos reiniciar con parado en False para que lo detecte y vuelva a contar.
 
             elif comando == "fin":
-             total = self.finalizar_carrera()
-             print(f"Viaje finalizado. Total de tiempo en el taxi: {total} segundos")  
-             break
+                total = self.finalizar_carrera()
+                print(f"Viaje finalizado. Total de tiempo en el taxi: {total} segundos")  
+                #print con f-string para poder cambiar valores.
+                break
 
             else:
-             print("Comando inválido. Por favor, ingrese 'Empezar', 'parar' o 'fin'.")
+                print("Comando inválido. Por favor, ingrese 'Empezar', 'parar', 'reiniciar' o 'fin'.")
+                #Si ya está detenido nos imprime esto.
 
     def finalizar_carrera(self):
-        if not self.parado:
-            self.parado = True
-            self.fin = datetime.now()
+            if not self.parado:
+                self.parado = True
+                self.fin = datetime.now()
+                tiempo_transcurrido = (self.fin - self.inicio).total_seconds() - self.tiempo_detenido
+                #cambiamos self.fin else 0 por la resta del tiempo detenido
+            else:  
+                tiempo_transcurrido = self.tiempo_detenido  
+                #añadimos este else para que no se puede detener varias veces, si está ya detenido, te lo dicef 
 
-        tiempo_transcurrido = (self.fin - self.inicio).total_seconds() if self.fin else 0
-        self.inicio = None
-        self.fin = None
+
+            self.inicio = None
+            self.fin = None
+            self.tiempo_detenido = 0
+            # restablece el tiempo total detenido
 
 
-        return tiempo_transcurrido
+
+            return tiempo_transcurrido
 
 
 
