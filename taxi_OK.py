@@ -11,23 +11,28 @@ class Cronometro:
     def empezar(self):
         if not self.en_ejecucion:
             self.inicio = time.time() - self.tiempo_pausado
+            #time.time nos dice el valor actual del tiempo
             self.en_ejecucion = True
+            #empezamos a contar
             print("Cronómetro empezado.")
 
     def parar(self):
         if self.en_ejecucion:
             self.tiempo_pausado = time.time() - self.inicio
+            #calcula el tiempo que pasa desde que inicia hasta la pausa
             print("El cronómetro sigue en marcha.")
 
     def reanudar(self):
         if not self.en_ejecucion:
             self.inicio = time.time() - self.tiempo_pausado
+            #valor actual menos tiempo pausado, se hace parar tener en cuenta el tiempo que ha pasado durante la pause y ajustar el tiempo de inicio
             self.en_ejecucion = True
             print("Cronómetro continúa.")
 
     def finalizar(self):
         if self.en_ejecucion:
             self.tiempo_transcurrido = time.time() - self.inicio
+            #tiempo total transcurrido desde el inicio del crono hasta el final
             self.en_ejecucion = False
             print("Cronómetro finalizado.")
         print(f"Tiempo total transcurrido: {self.tiempo_transcurrido} segundos.")
