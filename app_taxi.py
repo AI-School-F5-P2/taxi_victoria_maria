@@ -71,10 +71,11 @@ Utilizar None en vez de 0 es más correcto para representar la ausencia de un va
     Cambios marcados con# a lo largo del código.
 
     '''
+'''
 from datetime import datetime
 import tkinter as tk
 
-#PROBANDO
+
 
 
 
@@ -91,6 +92,7 @@ class Taxi:
         print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
         print("Para inicar pulse: 'Empezar'.")
         print("Para parar por tráfico, semáforo, pulse: 'parar'. ")
+        print("Para reiniciar el taxi, pulse: 'reiniciar'.")
         print("Para fin de carrera pulsa 'fin'.")
 
 
@@ -160,34 +162,122 @@ class Taxi:
 
 taxi = Taxi()
 taxi.iniciar_carrera()
+'''
 
+
+
+
+'''
+
+ESTE ES EL CODIGO CON MIS ANOTACIONES PARA HAY ALGO MAL
+import os
+import time
 from datetime import datetime
 import tkinter as tk
-
-from http.client import OK
-
+import threading
 
 
-def mensaje():
-    print("Bienvenidos/as al taxiguay.EXPLICACION DE FUNCIONAMIENTO.")
-    print("Para inicar AQUI LA FUNCIÓN")
-    print("Para parar por tráfico, semáforo AQUÍ LA FUNCIÓN")
-    print("Para fin de carrera AQUÍ LA FUNCIÓN")
-        
-mensaje()
-
-
-total = OK
 class Taxi:
     def __init__(self):
-        self.parado =  True
-        self.inicio = 0
-        self.fin = 0
+        self.parado = True
+        #Está inicialmente detenido
+        self.inicio = None
+        #Almacenará la marca del tiempo cuando se empiece a mover
+        self.tiempo_detenido = 0
+        #Llevará un seguimiento del tiempo en segundos que ha estado parado(útil para distiguir el tiempo que costara 2 cent)
+        self.mostrando_tiempo = False
+
+
+    def empezar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            print("Taxi en movimiento.")
+            if not self.mostrando_tiempo:
+                self.mostrando_tiempo = True
+                threading.Thread(target=self.mostrar_tiempo).start()
+        else:
+            print("El taxi ya está en marcha.")
+
+    def parar(self):
+        if self.parado:
+            print("El taxi ya está detenido.")
+            
+        else:
+            self.tiempo_detenido += (datetime.now() - self.inicio).total_seconds()
+            #calculamos el tiempo que estuve detenido hasta el momento actual restando la marca de 
+            #tiempo actual menos la de inicio y utilizamos .t_s() para obtener duracion en seg
+            # ver self.tiempo_detenido += tiempo_detenido_actual
+            #esto nos permite acumular el tiempo detenido el las paradas
+            self.parado = True
+            #indicamos que está detenido e imprimimos
+            print("Taxi detenido.")       
+
+    def reanudar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            #actualizamos la marca de tiempo de inicio con la actual, sirve para calcular
+            #un nuevo punto de partida 
+            print("Taxi reanudado.")
+        else:
+            print("El taxi ya está en marcha.")
+
+    def finalizar(self):
+        # esto anterior if self.parado:
+        if self.inicio is None:
+            print("El taxi no ha sido iniciado.")
+            return 0
+        
+        if not self.parado:
+            self.parar()
+            
+        tiempo_transcurrido = (datetime.now() - self.inicio).total_seconds() + self.tiempo_detenido
+
+        self.inicio = None 
+        self.parado = True
+        self.tiempo_detenido = 0
+
+        return tiempo_transcurrido
+             
+    
+
+
+taxi = Taxi()
+opcion = None
+#se asegura de que el bucle se ejecute al menos una vez antes de empezar a hacer el resto
+
+while opcion != "salir": 
+    #!= verifica si el valor es distinto de salir y si es así ejecuta lo siguiente   
+    print("¿Qué deseas hacer?")
+    print("1. Empezar")
+    print("2. Parar")
+    print("3. Reanudar")
+    print("4. Finalizar")
+    print("5. Salir")
+while True:
+    
+        opcion = input("Ingresa la opción: ")
+
+        if opcion.lower() == "empezar":
+            taxi.empezar()
+        elif opcion.lower() == "parar":
+            taxi.parar()
+        elif opcion.lower() == "reanudar":
+            taxi.reanudar()
+        elif opcion.lower() == "finalizar":
+            total = taxi.finalizar()
+            print(f"Viaje finalizado. Total de tiempo en el taxi: {total} segundos")
+        elif opcion.lower() == "salir":
+            break
+        else:
+            print("Opción inválida. Por favor, selecciona una opción válida.")
+    
 
 
 
-
-
+'''
+'''
 #Cronómetro y ventana emergente que nos muestra el tiempo que ha transcurrido desde el inicio. 
 
 hora_inicio = datetime.now()
@@ -219,8 +309,157 @@ raiz.title("prueba")
 refresh_tiempo()
 app.pack()
 app.mainloop()
-
+'''
 '''segundos = datetime.now() #fecha para los datos
 print(segundos.second)'''
 
 
+'''
+
+FINALLLLLLLLLL
+
+from datetime import datetime
+import tkinter as tk
+
+
+class Taxi:
+    def __init__(self):
+        self.parado = True
+        self.inicio = None
+        self.tiempo_detenido = 0
+
+    def empezar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            print("Taxi en movimiento.")
+        else:
+            print("El taxi ya está en movimiento.")
+
+    def parar(self):
+        if not self.parado:
+            self.parado = True
+            tiempo_detenido_actual = (datetime.now() - self.inicio).total_seconds()
+            self.tiempo_detenido += tiempo_detenido_actual
+            print("Taxi detenido.")
+        else:
+            print("El taxi ya está detenido.")
+
+    def reanudar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            print("Taxi reanudar.")
+        else:
+            print("El taxi ya está en movimiento.")
+
+    def finalizar(self):
+        if not self.parado:
+            self.parado = True
+            tiempo_transcurrido = (datetime.now() - self.inicio).total_seconds() + self.tiempo_detenido
+        else:
+            tiempo_transcurrido = self.tiempo_detenido
+
+        self.inicio = None
+        self.tiempo_detenido = 0
+
+        return tiempo_transcurrido
+
+
+taxi = Taxi()
+
+while True:
+    opcion = input("Ingresa la opción: ")
+
+    if opcion.lower() == "empezar":
+        taxi.empezar()
+    elif opcion.lower() == "parar":
+        taxi.parar()
+    elif opcion.lower() == "reanudar":
+        taxi.reanudar()
+    elif opcion.lower() == "finalizar":
+        total = taxi.finalizar()
+        print(f"Viaje finalizado. Total de tiempo en el taxi: {total} segundos")
+        break
+    elif opcion.lower() == "salir":
+        break
+    else:
+        print("Opción inválida. Por favor, selecciona una opción válida.")
+
+'''
+import threading
+from datetime import datetime
+import time
+
+class Taxi:
+    def __init__(self):
+        self.parado = True
+        self.inicio = None
+        self.tiempo_detenido = 0
+
+    def empezar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            print("Taxi en movimiento.")
+        else:
+            print("El taxi ya está en movimiento.")
+
+    def parar(self):
+        if not self.parado:
+            self.parado = True
+            tiempo_detenido_actual = (datetime.now() - self.inicio).total_seconds()
+            self.tiempo_detenido += tiempo_detenido_actual
+            print("Taxi detenido.")
+        else:
+            print("El taxi ya está detenido.")
+
+    def reiniciar(self):
+        if self.parado:
+            self.parado = False
+            self.inicio = datetime.now()
+            print("Taxi reiniciado.")
+        else:
+            print("El taxi ya está en movimiento.")
+
+    def finalizar(self):
+        if not self.parado:
+            self.parado = True
+            tiempo_transcurrido = (datetime.now() - self.inicio).total_seconds() + self.tiempo_detenido
+        else:
+            tiempo_transcurrido = self.tiempo_detenido
+
+        self.inicio = None
+        self.tiempo_detenido = 0
+
+        return tiempo_transcurrido
+
+def contador_segundos():
+    segundos = 0
+    while True:
+        segundos += 1
+        print(f"Segundos transcurridos: {segundos}")
+        time.sleep(1)
+
+taxi = Taxi()
+
+hilo_contador = threading.Thread(target=contador_segundos)
+hilo_contador.start()
+
+while True:
+    opcion = input("Ingresa la opción: ")
+
+    if opcion.lower() == "empezar":
+        taxi.empezar()
+    elif opcion.lower() == "parar":
+        taxi.parar()
+    elif opcion.lower() == "reiniciar":
+        taxi.reiniciar()
+    elif opcion.lower() == "finalizar":
+        total = taxi.finalizar()
+        print(f"Viaje finalizado. Total de tiempo en el taxi: {total} segundos")
+        break
+    elif opcion.lower() == "salir":
+        break
+    else:
+        print("Opción inválida. Por favor, selecciona una opción válida.")
