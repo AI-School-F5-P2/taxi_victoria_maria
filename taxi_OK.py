@@ -20,7 +20,7 @@ class Cronometro:
     def parar(self):
         if self.en_ejecucion:
             self.tiempo_pausado = time.time() - self.inicio
-            #calcula el tiempo que pasa desde que inicia hasta la pausa
+            #calcula el tiempo que pasa desde que inicia hasta la pausa.
             print("El cronómetro está pausado.")
 
     def reanudar(self):
