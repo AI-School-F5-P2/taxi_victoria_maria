@@ -1,0 +1,27 @@
+INFO:root:Cronómetro iniciado.
+INFO:root:Cronómetro empezado.
+INFO:root:Cronómetro iniciado.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cronómetro empezado.
+INFO:root:El taxi está en marcha.
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cronómetro finalizado.
+INFO:root:Tiempo total transcurrido: 5.49 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Programa finalizado.
+INFO:root:Cronómetro iniciado.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cronómetro empezado.
+INFO:root:El taxi está en marcha.
+INFO:root:Comando ingresado: parar
+INFO:root:El cronómetro está pausado.
+INFO:root:El taxi está parado.
+INFO:root:Comando ingresado: reanudar
+INFO:root:El taxi ha sido reanudado. Tiempo de pausa: 2.30 seg. Con un precio total de 0.05 €
+INFO:root:Comando ingresado: jdsg
+WARNING:root:Comando inválido ingresado.
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cronómetro finalizado.
+INFO:root:Tiempo total transcurrido: 16.44 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Programa finalizado.
