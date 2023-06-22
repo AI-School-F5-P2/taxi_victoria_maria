@@ -35,6 +35,15 @@ class Cronometro:
             self.en_ejecucion = False
             print("Cronómetro finalizado.")
         print(f"Tiempo total transcurrido: {self.tiempo_transcurrido} segundos.")
+        self.reiniciar()
+        #añadido pero no se
+
+    def reiniciar(self):
+        self.inicio = 0
+        self.tiempo_pausado = 0
+        self.tiempo_transcurrido = 0
+        self.en_ejecucion = False
+        print("Cronómetro reiniciado.")
 
 class Taxi:
     def __init__(self):
@@ -68,8 +77,17 @@ class Taxi:
         self.cronometro.finalizar()
         self.estado = "finalizado"
         print("El taxi ha finalizado su servicio.")
+        respuesta = input("¿Deseas comenzar una nueva carrera? (s/n): ")
+        if respuesta.lower() == "s":
+            self.cronometro.reiniciar()
+            self.estado = "parado"
+            print("Se ha comenzado una nueva carrera.")
+            return True
+        else:
+            print("Gracias por utilizar nuestro servicio.")
+            return False
 
-# Ejemplo de uso
+
 taxi = Taxi()
 
 while True:
@@ -84,8 +102,10 @@ while True:
     elif comando == "finalizar":
         taxi.finalizar()
         break
+   
     else:
         print("Comando inválido.")
+        
 
 '''
 SIN PAUSA
