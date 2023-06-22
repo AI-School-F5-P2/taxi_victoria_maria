@@ -34,3 +34,47 @@ INFO:root:Cronómetro finalizado.
 INFO:root:Tiempo total transcurrido: 3.87 segundos.
 INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
 INFO:root:Programa finalizado.
+INFO:root:Cronómetro iniciado.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cronómetro empezado.
+INFO:root:El taxi está en marcha.
+INFO:root:Comando ingresado: empezar
+INFO:root:Comando ingresado: parar
+INFO:root:El cronómetro está pausado.
+INFO:root:El taxi está parado.
+INFO:root:Comando ingresado: reanudar
+INFO:root:El taxi ha sido reanudado. Tiempo de pausa: 2.53 seg. Con un precio total de 0.05 €
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cronómetro finalizado.
+INFO:root:Tiempo total transcurrido: 15.30 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Programa finalizado.
+INFO:root:Cronómetro iniciado.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cronómetro empezado.
+INFO:root:El taxi está en marcha.
+INFO:root:Comando ingresado: parar
+INFO:root:El cronómetro está pausado.
+INFO:root:El taxi está parado.
+INFO:root:Comando ingresado: reanudar
+INFO:root:El taxi ha sido reanudado. Tiempo de pausa: 137.96 seg. Con un precio total de 2.76 €
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cronómetro finalizado.
+INFO:root:Tiempo total transcurrido: 151.84 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Tiempo total transcurrido: 151.84 segundos.
+INFO:root:Cronómetro iniciado.
+INFO:root:El cronómetro ha sido reiniciado. Inicia una nueva carrera.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cronómetro empezado.
+INFO:root:El taxi está en marcha.
+INFO:root:Comando ingresado: parar
+INFO:root:El cronómetro está pausado.
+INFO:root:El taxi está parado.
+INFO:root:Comando ingresado: reanudar
+INFO:root:El taxi ha sido reanudado. Tiempo de pausa: 2.26 seg. Con un precio total de 0.05 €
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cronómetro finalizado.
+INFO:root:Tiempo total transcurrido: 13.39 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Programa finalizado.
