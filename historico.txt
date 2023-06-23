@@ -1,0 +1,10 @@
+INFO:root:Cron�metro iniciado.
+INFO:root:Comando ingresado: empezar
+INFO:root:Cron�metro empezado.
+INFO:root:Comando ingresado: j
+WARNING:root:Comando inv�lido ingresado.
+INFO:root:Comando ingresado: finalizar
+INFO:root:Cron�metro finalizado.
+INFO:root:Tiempo total transcurrido: 4.22 segundos.
+INFO:root:El taxi ha finalizado su servicio. Total: PRECIO TOTAL
+INFO:root:Programa finalizado.
