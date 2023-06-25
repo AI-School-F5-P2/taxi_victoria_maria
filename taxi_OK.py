@@ -1,14 +1,19 @@
-#FUNCIONA, NOS DICE PAUSAS PERO NO DETIENE EL CONTADOR
 import time
 
-class ConversorTiempo:
-    def __init__(self, segundos):
-        horas = int(segundos / 60 / 60)
-        segundos -= horas*60*60
-        minutos = int(segundos/60)
-        segundos -= minutos*60
-        return f"{horas:02d}:{minutos:02d}:{segundos:02d}"
+#conversor de segundos a horas, minutos y segundos.
+'''class ConversorTiempo (object):
 
+    def __init__(self, segundos):
+        self.horas = int(segundos / 60 / 60)
+        segundos -= self.horas * 60 * 60
+        self.minutos = int(segundos / 60)
+        segundos -= self.minutos * 60
+        self.segundos = segundos
+        
+        return (f"{self.horas:02d}:{self.minutos:02d}:{segundos:02d}")'''
+   
+
+#Clase para el cronómetro
 class Cronometro:
     def __init__(self):
         self.inicio = 0
@@ -24,34 +29,37 @@ class Cronometro:
             #time.time nos dice el valor actual del tiempo
             self.en_ejecucion = True
             #empezamos a contar
-            print("Cronómetro empezado.")
+            #print("Cronómetro empezado.")
 
     def parar(self):
         if self.en_ejecucion:
             self.tiempo_pausado = time.time() - self.inicio
             #calcula el tiempo que pasa desde que inicia hasta la pausa.
-            print("El cronómetro está pausado.")
+            #print("El cronómetro está pausado.")
 
     def reanudar(self):
         if not self.en_ejecucion:
             self.inicio = time.time() - self.tiempo_pausado
             self.en_ejecucion = True
-            print("Cronómetro reanudado.")
+            #print("Cronómetro reanudado.")
 
     def finalizar(self):
         if self.en_ejecucion:
-            self.tiempo_transcurrido = time.time() - self.inicio
+            self.tiempo_transcurrido = time.time() - self.inicio          
             self.en_ejecucion = False
-            print("Cronómetro finalizado.")
+            self.ptotal = self.tiempo_transcurrido * 0.05
+            #print("Cronómetro finalizado.")
             
-        print("Tiempo total transcurrido: " + "{0:.2f}".format(self.tiempo_transcurrido) + " segundos.")
+       
+#conversor de tiempo en horas, minutos y segundos
 
-class Taxi:
+class Taxi (Cronometro):
     def __init__(self):
         self.cronometro = Cronometro()
         #cada objeto taxi tendrá su propio obj crono asociado para restrear el tiempo
         self.estado = "parado"
-        self.tiempo_pausado = 0
+        self.tiempo_pausa_total= 0
+        self.tiempo_acumulado = 0
 
     def empezar(self):
         if self.estado == "parado":
@@ -71,15 +79,23 @@ class Taxi:
             self.cronometro.reanudar()
             self.estado = "en marcha"
             tiempo_pausa = time.time() - self.tiempo_pausado
-            self.tpprecio = tiempo_pausa* 0.02
+            self.tiempo_acumulado += tiempo_pausa
+            #self.tiempo_pausa_total += tiempo_pausa
+            #sumatorio acumulativo de los centimos cuando está en parada
+            self.tpprecio = self.tiempo_acumulado* 0.02
           
             #valor actual menos tiempo pausado, se hace parar tener en cuenta el tiempo que ha pasado durante la pause y ajustar el tiempo de inicio
-            print("El taxi ha sido reanudado. Tiempo de pausa: " + "{0:.2f}".format(tiempo_pausa) + " seg. Con un precio total de " + "{0:.2f}".format(self.tpprecio) + " €")
+            print("El taxi ha sido reanudado. Tiempo de esta pausa: " + "{0:.2f}".format(tiempo_pausa) + " seg. Tiempo total de pausas: " + "{0:.2f}".format(self.tiempo_acumulado) + " seg. Total pausas: " + "{0:.2f}".format(self.tpprecio) + " €")
 
     def finalizar(self):
         self.cronometro.finalizar()
         self.estado = "finalizado"
-        print("El taxi ha finalizado su servicio. Total: PRECIO TOTAL")
+        tiempo_transcurrido = self.cronometro.tiempo_transcurrido
+        self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado 
+        self.preciototal = (self.tiempo_final * 0.05) + self.tpprecio
+               
+        print("El taxi ha finalizado su servicio. Total:" + "{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
+
 
 # Ejemplo de uso
 taxi = Taxi()
@@ -98,5 +114,3 @@ while True:
         break
     else:
         print("Comando inválido.")
-
-#probando probnado
