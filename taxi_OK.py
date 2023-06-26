@@ -136,5 +136,8 @@ while True:
 
         else:
             break
+    else:
+        print("Comando inválido.")
+        logging.warning("Comando inválido ingresado.")
 
 
