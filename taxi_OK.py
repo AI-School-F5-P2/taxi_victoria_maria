@@ -77,8 +77,6 @@ class Taxi (Cronometro):
             self.estado = "en marcha"
             tiempo_pausa = time.time() - self.tiempo_pausado
             self.tiempo_acumulado += tiempo_pausa
-            #self.tiempo_pausa_total += tiempo_pausa
-            #sumatorio acumulativo de los centimos cuando está en parada
             self.tpprecio = self.tiempo_acumulado* 0.02
           
             #valor actual menos tiempo pausado, se hace parar tener en cuenta el tiempo que ha pasado durante la pause y ajustar el tiempo de inicio
@@ -93,6 +91,12 @@ class Taxi (Cronometro):
                
         print("El taxi ha finalizado su servicio. Total:" + "{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
 
+    def reiniciar(self):
+        self.cronometro.finalizar()
+        self.cronometro = Cronometro()
+        self.tiempo_acumulado = 0
+        self.estado = "parado"
+        print("El cronómetro ha sido reiniciado. Inicia una nueva carrera.")
 
 # Ejemplo de uso
 taxi = Taxi()
@@ -108,6 +112,10 @@ while True:
         taxi.reanudar()
     elif comando == "finalizar":
         taxi.finalizar()
-        break
+        reiniciar = input("¿Deseas inciciar una nueva carrera? (si/no): ")
+        if reiniciar.lower() == "si": 
+            taxi.reiniciar()
+        else:    
+            break
     else:
         print("Comando inválido.")
