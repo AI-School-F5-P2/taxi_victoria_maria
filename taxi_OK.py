@@ -1,23 +1,13 @@
 import time
 
-#conversor de segundos a horas, minutos y segundos.
-'''class ConversorTiempo (object):
-    def __init__(self, segundos):
-        self.horas = int(segundos / 60 / 60)
-        segundos -= self.horas * 60 * 60
-        self.minutos = int(segundos / 60)
-        segundos -= self.minutos * 60
-        self.segundos = segundos        
-        return (f"{self.horas:02d}:{self.minutos:02d}:{segundos:02d}")'''
-
 #Clase para el cronómetro
 class Cronometro:
     def __init__(self):
         self.inicio = 0
         self.tiempo_pausado = 0
         self.tiempo_transcurrido = 0
-        self.en_ejecucion = False
-        
+        self.en_ejecucion = False  
+
         #es una booleana que indica si el crono esta en ejecución o no. Se inicia en 0 porque está parado.
  
     def empezar(self):
@@ -44,7 +34,6 @@ class Cronometro:
         if self.en_ejecucion:
             self.tiempo_transcurrido = time.time() - self.inicio          
             self.en_ejecucion = False
-            self.ptotal = self.tiempo_transcurrido * 0.05
             #print("Cronómetro finalizado.")
             
        
@@ -57,6 +46,8 @@ class Taxi (Cronometro):
         self.estado = "parado"
         self.tiempo_pausa_total= 0
         self.tiempo_acumulado = 0
+        self.precioparado = 0.02
+        self.preciomarcha = 0.05
 
     def empezar(self):
         if self.estado == "parado":
@@ -77,39 +68,54 @@ class Taxi (Cronometro):
             self.estado = "en marcha"
             tiempo_pausa = time.time() - self.tiempo_pausado
             self.tiempo_acumulado += tiempo_pausa
-            self.tpprecio = self.tiempo_acumulado* 0.02
+            self.tpprecio = self.tiempo_acumulado* self.precioparado
           
             #valor actual menos tiempo pausado, se hace parar tener en cuenta el tiempo que ha pasado durante la pause y ajustar el tiempo de inicio
             print("El taxi ha sido reanudado. Tiempo de esta pausa: " + "{0:.2f}".format(tiempo_pausa) + " seg. Tiempo total de pausas: " + "{0:.2f}".format(self.tiempo_acumulado) + " seg. Total pausas: " + "{0:.2f}".format(self.tpprecio) + " €")
 
+    def fin(self):
+        self.cronometro.finalizar()
+        self.estado = "finalizado"
+        tiempo_transcurrido = self.cronometro.tiempo_transcurrido
+        self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado 
+        self.preciototal = self.tiempo_final * self.preciomarcha
+               
+        print("El taxi ha finalizado su servicio. Total:" +"{0:.2f}".format(tiempo_transcurrido) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
+    
+        
     def finalizar(self):
         self.cronometro.finalizar()
         self.estado = "finalizado"
         tiempo_transcurrido = self.cronometro.tiempo_transcurrido
         self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado 
-        self.preciototal = (self.tiempo_final * 0.05) + self.tpprecio
+        self.preciototal = (self.tiempo_final * self.preciomarcha) + self.tpprecio
                
-        print("El taxi ha finalizado su servicio. Total:" + "{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
+        print("El taxi ha finalizado su servicio. Total:" +"{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
 
+    
     def reiniciar(self):
         self.cronometro.finalizar()
         self.cronometro = Cronometro()
         self.tiempo_acumulado = 0
         self.estado = "parado"
-        print("El cronómetro ha sido reiniciado. Inicia una nueva carrera.")
+        print("Inicia una nueva carrera")
 
 # Ejemplo de uso
 taxi = Taxi()
-
 while True:
-    comando = input("Introduce un comando (empezar, parar, reanudar, finalizar): ")
+    comando = input("Introduce un comando. empezar, parar, reanudar, fin (finalizar sin paradas), finalizar): ")
 
     if comando == "empezar":
-        taxi.empezar()
+        taxi.empezar()   
     elif comando == "parar":
         taxi.parar()
     elif comando == "reanudar":
         taxi.reanudar()
+    elif comando == "fin":
+        taxi.fin()
+        reiniciar = input("¿Deseas inciciar una nueva carrera? (si/no): ")
+        if reiniciar.lower() == "si": 
+            taxi.reiniciar()
     elif comando == "finalizar":
         taxi.finalizar()
         reiniciar = input("¿Deseas inciciar una nueva carrera? (si/no): ")
