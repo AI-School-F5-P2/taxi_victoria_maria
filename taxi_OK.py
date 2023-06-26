@@ -140,4 +140,3 @@ while True:
         print("Comando inválido.")
         logging.warning("Comando inválido ingresado.")
 
-
