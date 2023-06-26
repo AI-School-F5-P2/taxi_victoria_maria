@@ -2,16 +2,13 @@ import time
 
 #conversor de segundos a horas, minutos y segundos.
 '''class ConversorTiempo (object):
-
     def __init__(self, segundos):
         self.horas = int(segundos / 60 / 60)
         segundos -= self.horas * 60 * 60
         self.minutos = int(segundos / 60)
         segundos -= self.minutos * 60
-        self.segundos = segundos
-        
+        self.segundos = segundos        
         return (f"{self.horas:02d}:{self.minutos:02d}:{segundos:02d}")'''
-   
 
 #Clase para el cronómetro
 class Cronometro:
