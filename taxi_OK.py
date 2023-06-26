@@ -103,7 +103,7 @@ class Taxi (Cronometro):
 taxi = Taxi()
 while True:
     comando = input("Introduce un comando. empezar, parar, reanudar, fin (finalizar sin paradas), finalizar): ")
-
+#comandos que usamos para mover nuestro taxi
     if comando == "empezar":
         taxi.empezar()   
     elif comando == "parar":
