@@ -46,8 +46,8 @@ class Taxi (Cronometro):
         self.estado = "parado"
         self.tiempo_pausa_total= 0
         self.tiempo_acumulado = 0
-        self.precioparado = 0.02
-        self.preciomarcha = 0.05
+        self.precioparado = 0.02 #precio parada
+        self.preciomarcha = 0.05 #precio en marcha
 
     def empezar(self):
         if self.estado == "parado":
@@ -67,10 +67,10 @@ class Taxi (Cronometro):
             self.cronometro.reanudar()
             self.estado = "en marcha"
             tiempo_pausa = time.time() - self.tiempo_pausado
-            self.tiempo_acumulado += tiempo_pausa
-            self.tpprecio = self.tiempo_acumulado* self.precioparado
+            self.tiempo_acumulado += tiempo_pausa #incremento de pausas
+            self.tpprecio = self.tiempo_acumulado* self.precioparado #precio total de pausas
           
-            #valor actual menos tiempo pausado, se hace parar tener en cuenta el tiempo que ha pasado durante la pause y ajustar el tiempo de inicio
+            #La valores mostrados son: El tiempo de la pausa, el total de todas las pausas y el dinero que es en total las pausas
             print("El taxi ha sido reanudado. Tiempo de esta pausa: " + "{0:.2f}".format(tiempo_pausa) + " seg. Tiempo total de pausas: " + "{0:.2f}".format(self.tiempo_acumulado) + " seg. Total pausas: " + "{0:.2f}".format(self.tpprecio) + " €")
 
     def fin(self):
@@ -79,7 +79,7 @@ class Taxi (Cronometro):
         tiempo_transcurrido = self.cronometro.tiempo_transcurrido
         self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado 
         self.preciototal = self.tiempo_final * self.preciomarcha
-               
+        #Sumatorio total sin hacer ningún tipo de parada
         print("El taxi ha finalizado su servicio. Total:" +"{0:.2f}".format(tiempo_transcurrido) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
     
         
@@ -87,16 +87,15 @@ class Taxi (Cronometro):
         self.cronometro.finalizar()
         self.estado = "finalizado"
         tiempo_transcurrido = self.cronometro.tiempo_transcurrido
-        self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado 
-        self.preciototal = (self.tiempo_final * self.preciomarcha) + self.tpprecio
-               
-        print("El taxi ha finalizado su servicio. Total:" +"{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €") 
-
+        self.tiempo_final = tiempo_transcurrido - self.tiempo_acumulado #resta para averiguar cual segundos es el total
+        self.preciototal = (self.tiempo_final * self.preciomarcha) + self.tpprecio #precio real
+        #Se muestran los valores de: Total de la carrera, cuand han sido los segundos en REALES en marcha, y el total de la carrera. 
+        print("El taxi ha finalizado su servicio. Total:" +"{0:.2f}".format(tiempo_transcurrido) + " seg. Segundos reales en marcha "  + "{0:.2f}".format(self.tiempo_final) + " seg. Precio total de carrera " + "{0:.2f}".format(self.preciototal) +" €")    
     
     def reiniciar(self):
         self.cronometro.finalizar()
         self.cronometro = Cronometro()
-        self.tiempo_acumulado = 0
+        self.tiempo_acumulado = 0 #resetea todo lo antes calculado
         self.estado = "parado"
         print("Inicia una nueva carrera")
 
